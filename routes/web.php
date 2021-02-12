@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,3 +21,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('admins', 'AdminController');
+Route::resource('lectures', 'LectureController');
+Route::resource('students', 'StudentController');
+Route::resource('courses', 'CourseController');
+Route::resource('periodes', 'PeriodeController');
+Route::resource('studies', 'StudyController');

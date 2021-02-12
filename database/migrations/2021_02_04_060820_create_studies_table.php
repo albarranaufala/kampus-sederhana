@@ -18,7 +18,7 @@ class CreateStudiesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('periode_id')->unsigned();
             $table->integer('course_id')->unsigned();
-            $table->float('grade');
+            $table->float('grade')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')

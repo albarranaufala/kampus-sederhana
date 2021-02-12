@@ -35,16 +35,46 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
+                    @if (!Auth::guest())
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        @if (Auth::user()->role === 'admin')
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Sivitas <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ route('admins.index') }}">
+                                        Admin
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('lectures.index') }}">
+                                        Dosen
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('students.index') }}">
+                                        Mahasiswa
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ route('courses.index') }}">Mata Kuliah</a></li>
+                        <li><a href="{{ route('periodes.index') }}">Periode</a></li>
+                        @elseif (Auth::user()->role === 'lecture')
+                        <li><a href="{{ route('courses.index') }}">Mata Kuliah</a></li>
+                        @elseif (Auth::user()->role === 'student')
+                        <li><a href="{{ route('studies.index') }}">Studi</a></li>
+                        @endif
                     </ul>
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -71,10 +101,33 @@
             </div>
         </nav>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    @if (session()->has('status'))
+                    <div class="alert alert-success">
+                        {{ session()->get('status') }}
+                    </div>
+                    @endif
+            
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

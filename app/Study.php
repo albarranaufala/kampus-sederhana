@@ -12,15 +12,15 @@ class Study extends Model
         'user_id', 'course_id', 'periode_id', 'grade'
     ];
 
-    public function users () {
+    public function user () {
         return $this->belongsTo(User::class);
     }
 
-    public function courses () {
+    public function course () {
         return $this->belongsTo(Course::class);
     }
 
-    public function periodes () {
+    public function periode () {
         return $this->belongsTo(Periode::class);
     }
 }

@@ -21,8 +21,8 @@ class User extends Authenticatable
         return $this->hasMany(Course::class);
     }
 
-    public function credits () {
-        return $this->hasMany(Credit::class);
+    public function credit () {
+        return $this->hasOne(Credit::class);
     }
 
     public function studies () {
