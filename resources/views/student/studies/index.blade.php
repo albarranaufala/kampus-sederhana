@@ -7,7 +7,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <form action="{{ route('studies.index') }}" class="form-group">
+      <form action="{{ route('student.studies.index') }}" class="form-group">
         <label for="periode">Periode</label>
         <select name="periode_id" id="periode" class="form-control" onchange="this.form.submit()">
           @foreach ($periodes as $periode)
@@ -24,7 +24,7 @@
           <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog"
             aria-labelledby="modalCreateLabel">
             <div class="modal-dialog" role="document">
-              <form class="modal-content" action="{{ route('studies.store') }}" method="POST">
+              <form class="modal-content" action="{{ route('student.studies.store') }}" method="POST">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                       aria-hidden="true">&times;</span></button>
@@ -87,7 +87,7 @@
               <div class="modal fade" id="modalDelete{{$study->id}}" tabindex="-1" role="dialog"
                 aria-labelledby="modalDelete{{$study->id}}Label">
                 <div class="modal-dialog" role="document">
-                  <form class="modal-content" action="{{ route('studies.destroy', $study->id) }}" method="POST">
+                  <form class="modal-content" action="{{ route('student.studies.destroy', $study->id) }}" method="POST">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                           aria-hidden="true">&times;</span></button>

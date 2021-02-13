@@ -6,17 +6,17 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-heading" style="display: flex; justify-content: space-between;">
-          Dosen <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-            data-target="#modalCreate">+ Tambah</button>
+          Admin <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+            data-target="#modalCreateAdmin">+ Tambah</button>
           <!-- Modal -->
-          <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog"
-            aria-labelledby="modalCreateLabel">
+          <div class="modal fade" id="modalCreateAdmin" tabindex="-1" role="dialog"
+            aria-labelledby="modalCreateAdminLabel">
             <div class="modal-dialog" role="document">
-              <form class="modal-content" action="{{ route('lectures.store') }}" method="POST">
+              <form class="modal-content" action="{{ route('admin.admins.store') }}" method="POST">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                       aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="modalCreateLabel">Tambah Dosen</h4>
+                  <h4 class="modal-title" id="modalCreateAdminLabel">Tambah Admin</h4>
                 </div>
                 <div class="modal-body">
                   {{ csrf_field() }}
@@ -60,7 +60,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                  <button type="submit" class="btn btn-primary">Tambah Dosen</button>
+                  <button type="submit" class="btn btn-primary">Tambah Admin</button>
                 </div>
               </form>
             </div>
@@ -74,24 +74,24 @@
             <th>Username</th>
             <th>Aksi</th>
           </tr>
-          @forelse ($lectures as $lecture)
+          @forelse ($admins as $admin)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $lecture->name }}</td>
-            <td>{{ $lecture->username }}</td>
+            <td>{{ $admin->name }}</td>
+            <td>{{ $admin->username }}</td>
             <td>
-              <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalUpdate{{$lecture->id}}">
+              <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalUpdate{{$admin->id}}">
                 Sunting
               </button>
               <!-- Modal -->
-              <div class="modal fade" id="modalUpdate{{$lecture->id}}" tabindex="-1" role="dialog"
-                aria-labelledby="modalUpdate{{$lecture->id}}Label">
+              <div class="modal fade" id="modalUpdate{{$admin->id}}" tabindex="-1" role="dialog"
+                aria-labelledby="modalUpdate{{$admin->id}}Label">
                 <div class="modal-dialog" role="document">
-                  <form class="modal-content" action="{{ route('lectures.update', $lecture->id) }}" method="POST">
+                  <form class="modal-content" action="{{ route('admin.admins.update', $admin->id) }}" method="POST">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                           aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="modalUpdate{{$lecture->id}}Label">Sunting Dosen</h4>
+                      <h4 class="modal-title" id="modalUpdate{{$admin->id}}Label">Sunting Admin</h4>
                     </div>
                     <div class="modal-body">
                       {{ csrf_field() }}
@@ -100,7 +100,7 @@
                         <label for="name">Nama Lengkap</label>
                         <input name="name" type="text"
                           class="form-control{{ $errors->has('name') ? ' has-error' : '' }}" id="name"
-                          placeholder="Nama Lengkap" value="{{ old('name') ?? $lecture->name }}" required>
+                          placeholder="Nama Lengkap" value="{{ old('name') ?? $admin->name }}" required>
                         @if ($errors->has('name'))
                         <span class="help-block">
                           <strong>{{ $errors->first('name') }}</strong>
@@ -111,7 +111,7 @@
                         <label for="username">Username</label>
                         <input name="username" type="text"
                           class="form-control{{ $errors->has('username') ? ' has-error' : '' }}" id="username"
-                          placeholder="Username" value="{{ old('username') ?? $lecture->username }}" required>
+                          placeholder="Username" value="{{ old('username') ?? $admin->username }}" required>
                         @if ($errors->has('username'))
                         <span class="help-block">
                           <strong>{{ $errors->first('username') }}</strong>
@@ -126,23 +126,23 @@
                   </form>
                 </div>
               </div>
-              <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete{{$lecture->id}}">
+              <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete{{$admin->id}}">
                 Hapus
               </button>
               <!-- Modal -->
-              <div class="modal fade" id="modalDelete{{$lecture->id}}" tabindex="-1" role="dialog"
-                aria-labelledby="modalDelete{{$lecture->id}}Label">
+              <div class="modal fade" id="modalDelete{{$admin->id}}" tabindex="-1" role="dialog"
+                aria-labelledby="modalDelete{{$admin->id}}Label">
                 <div class="modal-dialog" role="document">
-                  <form class="modal-content" action="{{ route('lectures.destroy', $lecture->id) }}" method="POST">
+                  <form class="modal-content" action="{{ route('admin.admins.destroy', $admin->id) }}" method="POST">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                           aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="modalDelete{{$lecture->id}}Label">Anda yakin?</h4>
+                      <h4 class="modal-title" id="modalDelete{{$admin->id}}Label">Anda yakin?</h4>
                     </div>
                     <div class="modal-body">
                       {{ csrf_field() }}
                       {{ method_field('DELETE') }}
-                      Anda yakin ingin menghapus dosen?
+                      Anda yakin ingin menghapus admin?
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>

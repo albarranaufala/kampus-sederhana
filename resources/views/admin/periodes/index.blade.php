@@ -12,7 +12,7 @@
           <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog"
             aria-labelledby="modalCreateLabel">
             <div class="modal-dialog" role="document">
-              <form class="modal-content" action="{{ route('periodes.store') }}" method="POST">
+              <form class="modal-content" action="{{ route('admin.periodes.store') }}" method="POST">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                       aria-hidden="true">&times;</span></button>
@@ -97,7 +97,7 @@
               <div class="modal fade" id="modalUpdate{{$periode->id}}" tabindex="-1" role="dialog"
                 aria-labelledby="modalUpdate{{$periode->id}}Label">
                 <div class="modal-dialog" role="document">
-                  <form class="modal-content" action="{{ route('periodes.update', $periode->id) }}" method="POST">
+                  <form class="modal-content" action="{{ route('admin.periodes.update', $periode->id) }}" method="POST">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                           aria-hidden="true">&times;</span></button>
@@ -164,7 +164,7 @@
               <div class="modal fade" id="modalDelete{{$periode->id}}" tabindex="-1" role="dialog"
                 aria-labelledby="modalDelete{{$periode->id}}Label">
                 <div class="modal-dialog" role="document">
-                  <form class="modal-content" action="{{ route('periodes.destroy', $periode->id) }}" method="POST">
+                  <form class="modal-content" action="{{ route('admin.periodes.destroy', $periode->id) }}" method="POST">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                           aria-hidden="true">&times;</span></button>

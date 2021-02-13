@@ -1,15 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Course;
-use App\Http\Requests\CourseStoreRequest;
-use App\Http\Requests\CourseUpdateRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\LectureStoreRequest;
+use App\Http\Requests\LectureUpdateRequest;
 use App\User;
-use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class LectureController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +26,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
         $lectures = User::where('role', 'lecture')->get();
-        
-        return view('courses.index', compact('courses', 'lectures'));
+        return view('admin.civitas.lectures.index', compact('lectures'));
     }
 
     /**
@@ -39,15 +46,16 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CourseStoreRequest $request)
+    public function store(LectureStoreRequest $request)
     {
-        Course::create([
-            'user_id' => $request->lecture,
+        User::create([
             'name' => $request->name,
-            'credit' => $request->credit,
+            'username' => $request->username,
+            'role' => 'lecture',
+            'password' => bcrypt($request->password)
         ]);
 
-        return redirect()->back()->with('status', 'Add course success!');
+        return redirect()->back()->with('status', 'Add lecture success!');
     }
 
     /**
@@ -79,15 +87,14 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CourseUpdateRequest $request, $id)
+    public function update(LectureUpdateRequest $request, $id)
     {
-        Course::find($id)->update([
-            'user_id' => $request->lecture,
+        User::find($id)->update([
             'name' => $request->name,
-            'credit' => $request->credit,
+            'username' => $request->username
         ]);
 
-        return redirect()->back()->with('status', 'Update course success!');
+        return redirect()->back()->with('status', 'Update lecture success!');
     }
 
     /**
@@ -98,6 +105,8 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lecture = User::find($id);
+        $lecture->delete();
+        return redirect()->back()->with('status', 'Delete lecture success!');
     }
 }

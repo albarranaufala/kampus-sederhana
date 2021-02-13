@@ -21,9 +21,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('admins', 'AdminController');
-Route::resource('lectures', 'LectureController');
-Route::resource('students', 'StudentController');
-Route::resource('courses', 'CourseController');
-Route::resource('periodes', 'PeriodeController');
-Route::resource('studies', 'StudyController');
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('admins', 'AdminController');
+    Route::resource('lectures', 'LectureController');
+    Route::resource('students', 'StudentController');
+    Route::resource('courses', 'CourseController');
+    Route::resource('periodes', 'PeriodeController');
+});
+Route::namespace('Student')->prefix('student')->name('student.')->group(function () {
+    Route::resource('studies', 'StudyController');
+});
+Route::namespace('Lecture')->prefix('lecture')->name('lecture.')->group(function () {
+    Route::resource('courses', 'CourseController');
+    Route::post('studies/{study}/grade', 'StudyController@grade')->name('studies.grade');
+});

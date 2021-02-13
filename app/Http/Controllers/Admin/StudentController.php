@@ -1,14 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentStoreRequest;
 use App\Http\Requests\StudentUpdateRequest;
 use App\User;
-use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +27,7 @@ class StudentController extends Controller
     public function index()
     {
         $students = User::where('role', 'student')->get();
-        return view('civitas.students.index', compact('students'));
+        return view('admin.civitas.students.index', compact('students'));
     }
 
     /**

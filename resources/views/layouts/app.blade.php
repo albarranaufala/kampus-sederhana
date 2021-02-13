@@ -44,28 +44,28 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ route('admins.index') }}">
+                                    <a href="{{ route('admin.admins.index') }}">
                                         Admin
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('lectures.index') }}">
+                                    <a href="{{ route('admin.lectures.index') }}">
                                         Dosen
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('students.index') }}">
+                                    <a href="{{ route('admin.students.index') }}">
                                         Mahasiswa
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="{{ route('courses.index') }}">Mata Kuliah</a></li>
-                        <li><a href="{{ route('periodes.index') }}">Periode</a></li>
+                        <li><a href="{{ route('admin.courses.index') }}">Mata Kuliah</a></li>
+                        <li><a href="{{ route('admin.periodes.index') }}">Periode</a></li>
                         @elseif (Auth::user()->role === 'lecture')
-                        <li><a href="{{ route('courses.index') }}">Mata Kuliah</a></li>
+                        <li><a href="{{ route('lecture.courses.index') }}">Mata Kuliah Saya</a></li>
                         @elseif (Auth::user()->role === 'student')
-                        <li><a href="{{ route('studies.index') }}">Studi</a></li>
+                        <li><a href="{{ route('student.studies.index') }}">Studi</a></li>
                         @endif
                     </ul>
                     @endif

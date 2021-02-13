@@ -12,7 +12,7 @@
           <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog"
             aria-labelledby="modalCreateLabel">
             <div class="modal-dialog" role="document">
-              <form class="modal-content" action="{{ route('courses.store') }}" method="POST">
+              <form class="modal-content" action="{{ route('admin.courses.store') }}" method="POST">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                       aria-hidden="true">&times;</span></button>
@@ -89,7 +89,7 @@
               <div class="modal fade" id="modalUpdate{{$course->id}}" tabindex="-1" role="dialog"
                 aria-labelledby="modalUpdate{{$course->id}}Label">
                 <div class="modal-dialog" role="document">
-                  <form class="modal-content" action="{{ route('courses.update', $course->id) }}" method="POST">
+                  <form class="modal-content" action="{{ route('admin.courses.update', $course->id) }}" method="POST">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                           aria-hidden="true">&times;</span></button>
@@ -151,7 +151,7 @@
               <div class="modal fade" id="modalDelete{{$course->id}}" tabindex="-1" role="dialog"
                 aria-labelledby="modalDelete{{$course->id}}Label">
                 <div class="modal-dialog" role="document">
-                  <form class="modal-content" action="{{ route('courses.update', $course->id) }}" method="POST">
+                  <form class="modal-content" action="{{ route('admin.courses.update', $course->id) }}" method="POST">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                           aria-hidden="true">&times;</span></button>

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
 use App\Course;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StudyStoreRequest;
 use App\Periode;
 use App\Study;
@@ -12,6 +13,16 @@ use Illuminate\Support\Facades\Auth;
 
 class StudyController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +40,7 @@ class StudyController extends Controller
         $studies = $user->studies->where('periode_id', $currentPeriode->id);
         $courses = Course::all();
 
-        return view('studies.index', compact('periodes', 'studies', 'currentPeriode', 'courses'));
+        return view('student.studies.index', compact('periodes', 'studies', 'currentPeriode', 'courses'));
     }
 
     /**

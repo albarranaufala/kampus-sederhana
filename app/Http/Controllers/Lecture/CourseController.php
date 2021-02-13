@@ -1,14 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Lecture;
 
-use App\Http\Requests\PeriodeStoreRequest;
-use App\Http\Requests\PeriodeUpdateRequest;
-use App\Periode;
+use App\Course;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class PeriodeController extends Controller
+class CourseController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,9 +26,10 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $periodes = Periode::all();
+        $user = Auth::user();
+        $courses = $user->courses;
 
-        return view('periodes.index', compact('periodes'));
+        return view('lecture.courses.index', compact('courses'));
     }
 
     /**
@@ -37,16 +48,9 @@ class PeriodeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PeriodeStoreRequest $request)
+    public function store(Request $request)
     {
-        Periode::create([
-            'year' => $request->year,
-            'semester' => $request->semester,
-            'register_start' => $request->register_start,
-            'register_end' => $request->register_end
-        ]);
-
-        return redirect()->back()->with('status', 'Add periode success!');
+        //
     }
 
     /**
@@ -57,7 +61,9 @@ class PeriodeController extends Controller
      */
     public function show($id)
     {
-        //
+        $course = Course::find($id);
+
+        return view('lecture.courses.show', compact('course'));
     }
 
     /**
@@ -78,16 +84,9 @@ class PeriodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PeriodeUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        Periode::find($id)->update([
-            'year' => $request->year,
-            'semester' => $request->semester,
-            'register_start' => $request->register_start,
-            'register_end' => $request->register_end
-        ]);
-
-        return redirect()->back()->with('status', 'Update periode success!');
+        //
     }
 
     /**
@@ -98,9 +97,6 @@ class PeriodeController extends Controller
      */
     public function destroy($id)
     {
-        $periode = Periode::find($id);
-        $periode->delete();
-
-        return redirect()->back()->with('status', 'Delete periode success!');
+        //
     }
 }
