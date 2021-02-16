@@ -62,23 +62,22 @@ class StudyController extends Controller
     public function store(StudyStoreRequest $request)
     {
         $periode = Periode::find($request->periode);
-        if ($this->isCurrentTimeBetween($periode->register_start, $periode->register_end)) {
-            $study = Study::create([
-                'periode_id' => $request->periode,
-                'course_id' => $request->course,
-                'user_id' => Auth::id()
-            ]);
-            if ($study->id) {
-                return redirect()->back()->with('status', 'Add study success!');
-            }
-            return redirect()->back()->withErrors([
-                'Your credit is not enough!'
-            ]);
-        } else {
+        if ($this->isExpired($periode)) {
             return redirect()->back()->withErrors([
                 'You has exceeded the deadline!'
             ]);
         }
+        $study = Study::create([
+            'periode_id' => $request->periode,
+            'course_id' => $request->course,
+            'user_id' => Auth::id()
+        ]);
+        if ($study->id) {
+            return redirect()->back()->with('status', 'Add study success!');
+        }
+        return redirect()->back()->withErrors([
+            'Your credit is not enough!'
+        ]);
     }
 
     /**
@@ -124,18 +123,17 @@ class StudyController extends Controller
     public function destroy(Request $request, $id)
     {
         $periode = Periode::find($request->periode);
-        if ($this->isCurrentTimeBetween($periode->register_start, $periode->register_end)) {
-            $study = Study::find($id);
-            $study->delete();
-            return redirect()->back()->with('status', 'Delete study success!');
-        } else {
+        if ($this->isExpired($periode)) {
             return redirect()->back()->withErrors([
                 'You has exceeded the deadline!'
             ]);
         }
+        $study = Study::find($id);
+        $study->delete();
+        return redirect()->back()->with('status', 'Delete study success!');
     }
 
-    private function isCurrentTimeBetween ($start, $end) {
-        return Carbon::now()->between(Carbon::parse($start), Carbon::parse($end.' 23:59:59'));
+    private function isExpired ($periode) {
+        return !Carbon::now()->between(Carbon::parse($periode->register_start), Carbon::parse($periode->register_end.' 23:59:59'));
     }
 }

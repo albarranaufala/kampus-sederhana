@@ -108,6 +108,8 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Course::find($id)->delete();
+
+        return redirect()->back()->with('status', 'Delete course success!');
     }
 }
