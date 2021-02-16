@@ -63,12 +63,17 @@ class StudyController extends Controller
     {
         $periode = Periode::find($request->periode);
         if ($this->isCurrentTimeBetween($periode->register_start, $periode->register_end)) {
-            $user = Auth::user();
-            $user->studies()->create([
+            $study = Study::create([
                 'periode_id' => $request->periode,
                 'course_id' => $request->course,
+                'user_id' => Auth::id()
             ]);
-            return redirect()->back()->with('status', 'Add study success!');
+            if ($study->id) {
+                return redirect()->back()->with('status', 'Add study success!');
+            }
+            return redirect()->back()->withErrors([
+                'Your credit is not enough!'
+            ]);
         } else {
             return redirect()->back()->withErrors([
                 'You has exceeded the deadline!'

@@ -7,6 +7,9 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
+      <div class="form-group">
+        <p><b>Jatah Ambil SKS:</b> {{ Auth::user()->credit->credit }}</p>
+      </div>
       <form action="{{ route('student.studies.index') }}" class="form-group">
         <label for="periode">Periode</label>
         <select name="periode_id" id="periode" class="form-control" onchange="this.form.submit()">
@@ -40,7 +43,7 @@
                       placeholder="Mata Kuliah" value="{{ old('course') }}" required>
                       <option value="" disabled selected>Pilih Mata Kuliah</option>
                       @foreach ($courses as $course)
-                      <option value="{{ $course->id }}">{{ $course->name }} - {{ $course->user->name }}</option>
+                      <option value="{{ $course->id }}">{{ $course->name }} - {{ $course->user->name }} - {{ $course->credit }} SKS</option>
                       @endforeach
                     </select>
                     @if ($errors->has('course'))
